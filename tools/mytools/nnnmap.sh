@@ -3,7 +3,6 @@
 name_opt=''
 out_opt=''
 rate_opt=10000
-is_in_hosts=false
 ports=''
 
 main () {
