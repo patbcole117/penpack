@@ -23,6 +23,7 @@ main () {
                 check_host
                 check_output
                 scan_srv
+                scan_udp
         else
                 usage
         fi
@@ -75,11 +76,20 @@ check_output(){
         echo ''
 }
 
-scan_tcp_udp() {
+scan_udp() {
 
-        echo 'Scanning TCP and UDP...'
+        echo 'Scanning UDP...'
 
-        ports=$(nmap -sT -sU -p- --min-rate ${rate_opt} -oA ${out_opt}tcp_udp_scan ${name_opt} \
+        nmap -sU -p- --min-rate ${rate_opt} -oA ${out_opt}udp_scan ${name_opt}
+
+        echo ''
+}
+
+scan_tcp() {
+
+        echo 'Scanning TCP...'
+
+        ports=$(nmap -sT -p- --min-rate ${rate_opt} -oA ${out_opt}tcp_scan ${name_opt} \
         | grep ^[0-9] \
         | cut -d '/' -f 1 \
         | tr '\n' ',' \
@@ -91,11 +101,11 @@ scan_tcp_udp() {
 
 scan_srv() {
 
-        scan_tcp_udp
+        scan_tcp
 
         echo 'Scanning services...'
 
-        nmap -PN -sC -sV -O -p${ports} -oA ${out_opt}srv_scan ${name_opt}
+        nmap -PN -sC -sV -O -p${ports} --min-rate ${rate_opt} -oA ${out_opt}srv_scan ${name_opt}
 
         echo ''
 }
