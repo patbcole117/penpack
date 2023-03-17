@@ -3,16 +3,18 @@
 name_opt=''
 out_opt=''
 rate_opt=10000
+udp_opt=false
 ports=''
 
 main () {
 
-        while getopts 'n:o:r:S' opt; do
+        while getopts 'n:o:r:SU' opt; do
                 case "${opt}" in
 
                         n) name_opt=${OPTARG} ;;
                         o) out_opt=${OPTARG} ;;
                         r) rate_opt=${OPTARG} ;;
+                        U) udp_opt=true ;;
                         *) usage ;;
 
                 esac
@@ -23,7 +25,9 @@ main () {
                 check_host
                 check_output
                 scan_srv
-                scan_udp
+                if ${udp_opt}; then
+                        scan_udp
+                fi
         else
                 usage
         fi
