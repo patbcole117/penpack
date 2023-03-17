@@ -2,7 +2,7 @@
 
 name_opt=''
 out_opt=''
-rate_opt=10000
+rate_opt=3
 ports=''
 
 main () {
@@ -80,7 +80,7 @@ scan_udp() {
 
         echo 'Scanning UDP...'
 
-        nmap -sU -p- --min-rate ${rate_opt} -oA ${out_opt}udp_scan ${name_opt}
+        nmap -sU -p- -T ${rate_opt} -oA ${out_opt}udp_scan ${name_opt}
 
         echo ''
 }
@@ -89,7 +89,7 @@ scan_tcp() {
 
         echo 'Scanning TCP...'
 
-        ports=$(nmap -sT -p- --min-rate ${rate_opt} -oA ${out_opt}tcp_scan ${name_opt} \
+        ports=$(nmap -sT -p- -T ${rate_opt} -oA ${out_opt}tcp_scan ${name_opt} \
         | grep ^[0-9] \
         | cut -d '/' -f 1 \
         | tr '\n' ',' \
@@ -105,7 +105,7 @@ scan_srv() {
 
         echo 'Scanning services...'
 
-        nmap -PN -sC -sV -O -p${ports} --min-rate ${rate_opt} -oA ${out_opt}srv_scan ${name_opt}
+        nmap -PN -sC -sV -O -p${ports} -T ${rate_opt} -oA ${out_opt}srv_scan ${name_opt}
 
         echo ''
 }
