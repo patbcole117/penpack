@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import base64
 import urllib.parse
 from argparse import ArgumentParser
 
@@ -15,17 +16,36 @@ def main():
     if args.type.upper() == 'URL':
         print(url_format(args.instring, args.decode))
 
+    elif args.type.upper() == 'B64':
+        print(b64_format(args.instring, args.decode))
+
 def url_format(instring, d):
 
     if d:
         print('DECODING URL....')
-        return urllib.parse.unquote(instring)
+        outstring = urllib.parse.unquote(instring)
+        return outstring
     else:
         print('ENCODING URL....')
-        instring = urllib.parse.quote(instring, safe='')
-        instring = instring.replace('.', '%2E')
-        instring = instring.replace('-','%2D')
-        return instring
-    
+        outstring = urllib.parse.quote(instring, safe='')
+        outstring = outstring.replace('.', '%2E')
+        outstring = outstring.replace('-','%2D')
+        return outstring
+
+def b64_format(instring, d):
+
+    instring_bytes = instring.encode('ascii')
+
+    if d:
+        print('DECODING B64....')
+        outstring_bytes = base64.b64decode(instring_bytes)
+        outstring = outstring_bytes.decode('ascii')
+        return outstring
+    else:
+        print('ENCODING B64....')
+        outstring_bytes = base64.b64encode(instring_bytes)
+        outstring = outstring_bytes.decode('ascii')
+        return outstring
+
 if __name__ == '__main__':
     main()
