@@ -68,7 +68,7 @@ check_output(){
 
         if [[ ! -d ${out_opt}  ]]; then
                 read -p ".${out_opt} does not exist, would you like to create it (y/n)?" q_mkdir
-                if [[ ${q_mkdir} = 'y' || ${?mk_dir} = 'Y' ]]; then
+                if [[ ${q_mkdir} = 'y' || ${q_mkdir} = 'Y' ]]; then
                         mkdir -p ${out_opt}
                         echo ".${out_opt} has been created!"
                 else
