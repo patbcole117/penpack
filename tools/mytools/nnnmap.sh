@@ -2,13 +2,13 @@
 
 name_opt=''
 out_opt=''
-rate_opt=10000
+rate_opt=5000
 udp_opt=false
 ports=''
 
 main () {
 
-        while getopts 'n:o:r:SU' opt; do
+        while getopts 'n:o:r:U' opt; do
                 case "${opt}" in
 
                         n) name_opt=${OPTARG} ;;
@@ -37,7 +37,7 @@ main () {
 check_host(){
         echo 'Checking /etc/host...'
 
-        cat /etc/hosts | grep -P "\s${name_opt}(\s|$)"
+        cat /etc/hosts | grep -P "(\s|^)${name_opt}(\s|$)"
         if [[ $? -eq 0 ]]; then
                echo 'Found in /etc/hosts!'
         else
