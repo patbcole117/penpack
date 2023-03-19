@@ -13,11 +13,17 @@ def main():
 
     print(f"DEBUG: {args}")
 
+    try:
+        f = open(args.instring, 'r')
+        instring = f.read()
+    except:
+        instring = args.instring
+
     if args.type.upper() == 'URL':
-        print(url_format(args.instring, args.decode))
+        print(url_format(instring, args.decode))
 
     elif args.type.upper() == 'B64':
-        print(b64_format(args.instring, args.decode))
+        print(b64_format(instring, args.decode))
 
 def url_format(instring, d):
 
