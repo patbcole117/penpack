@@ -9,23 +9,24 @@ def main():
     ap.add_argument('instring')
     ap.add_argument('-t', '--type')
     ap.add_argument('-d', '--decode', action="store_true")
+    ap.add_argument('-n','--nospace',action="store_true")
+    ap.add_argument('-f','--file',action="store_true")
     args = ap.parse_args()
 
     print(f"DEBUG: {args}")
 
-    try:
+    if args.file:
         f = open(args.instring, 'r')
         instring = f.read()
-    except:
+    else:
         instring = args.instring
 
     if args.type.upper() == 'URL':
-        print(url_format(instring, args.decode))
-
+        print(url_format(instring, args.decode, args.nospace))
     elif args.type.upper() == 'B64':
         print(b64_format(instring, args.decode))
 
-def url_format(instring, d):
+def url_format(instring, d, n):
 
     if d:
         print('DECODING URL....')
@@ -36,6 +37,7 @@ def url_format(instring, d):
         outstring = urllib.parse.quote(instring, safe='')
         outstring = outstring.replace('.', '%2E')
         outstring = outstring.replace('-','%2D')
+        if n:outstring = outstring.replace('%20', '%09')
         return outstring
 
 def b64_format(instring, d):
