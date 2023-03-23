@@ -13,6 +13,8 @@ def main():
     ap.add_argument('-f','--file',action="store_true")
     args = ap.parse_args()
 
+    # TODO Output to file?
+
     print(f"DEBUG: ARGS: {args}")
 
     if args.file:
