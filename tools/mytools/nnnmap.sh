@@ -28,6 +28,7 @@ main () {
                 check_output
                 if ${srv_opt}; then
                         scan_srv
+                fi
                 if ${udp_opt}; then
                         scan_udp
                 fi
