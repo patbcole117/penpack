@@ -3,6 +3,7 @@ import base64
 import urllib.parse
 from argparse import ArgumentParser
 
+
 def main():
 
     ap = ArgumentParser()
