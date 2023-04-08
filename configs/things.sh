@@ -11,8 +11,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ftsdir}zsh-
 echo "source ${ftsdir}zsh-syntax-hilighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 source /usr/share/first-time-setup/zsh-syntax-hilighting/zsh-syntax-highlighting.zsh
 
-# TMUX PLUGINS
+# TMUX
 https://github.com/tmux-plugins/tpm
-
-# TMUX THEMES
+https://github.com/tmux-plugins/tmux-resurrect
 https://github.com/jimeh/tmux-themepack
