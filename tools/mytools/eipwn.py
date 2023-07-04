@@ -2,19 +2,16 @@ import sys
 
 charSet =  'ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijklmnopqrstuvwxyz-123456789'.split('-')
 
-def bytesToString(byteString):
-    bs = byteString.replace('0x','')
+def hexByteStringToLittleEndianStr(byteString):
+    hbs = byteString.replace('0x','')
     
     i = 0
-    j = 1
-    pat  = ''
-    while j < len(bs):
-        c = bs[i] + bs[j]
-        pat += chr(int(c, 16))
+    delimiter  = ''
+    while i < (len(hbs)-1):
+        c = hbs[i] + hbs[i+1]
+        delimiter += chr(int(c, 16))
         i+=2
-        j+=2
-    print(pat[::-1])
-    return pat[::-1]
+    return delimiter[::-1]
 
 def generatePattern(size=1024):
     pattern = ''
@@ -43,7 +40,7 @@ if __name__ == '__main__':
 
     i = input('Enter delimiter: ')
     if '0x' in i:
-        i = bytesToString(i)
+        i = hexByteStringToLittleEndianStr(i)
 
     blen = findLength(p, i)
     print(blen)
